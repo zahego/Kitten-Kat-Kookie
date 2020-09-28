@@ -1,0 +1,48 @@
+﻿@page "{id}"
+@{ Layout = "_Layout";
+    var id = long.Parse((string)RouteData.Values["id"]);
+ 
+    var recipe = await RecipesService.FindAsync(id);
+    ViewData["Recipe-Title-Name"] = recipe.Name;}
+
+
+        <div class="row recipe">
+
+            <div class="col-md-8">
+
+                <div class="col-md-12">
+
+                    <span class="description">
+                        @recipe.Description
+                    </span>
+
+                    <hr />
+                </div>
+
+                <div class="ingredients col-md-4">
+                    <h4>Ingredients</h4>
+                    <ul>
+                        @foreach (var ingedient in recipe.IngredientsList)
+                        {
+            <li>@ingedient</li>
+}
+                    </ul>
+                </div>
+
+                <div class="directions col-md-8">
+                    <h4>Directions</h4>
+                    <ol>
+                        @foreach (var step in recipe.DirectionsList)
+                        {
+            <li>@step</li>
+}
+                    </ol>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 text-right">
+                <img class="img img-thumbnail" src="@recipe.SrcImage" />
+            </div>
+
+        </div>
